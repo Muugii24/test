@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   FlatList,
 } from "react-native";
+import CallLog from "./components/CallLog";
 
 export default function App() {
   let pic = {
@@ -18,7 +19,6 @@ export default function App() {
 
   const [num, setNum] = useState("");
   const [history, setHistory] = useState([]);
-  const [revHistory, setRevHistory] = useState([]);
   const [toggle, setToggle] = useState(false);
 
   const Item = ({ title }) => (
@@ -27,7 +27,7 @@ export default function App() {
     </View>
   );
 
-  const renderItem = ({ item }) => <Item title={item.phoneNum} />;
+  const renderItem = ({ item }) => <Item title={item.phoneNum} key={item[0]} />;
 
   const changeNum = (e) => {
     setNum(e);
@@ -35,6 +35,7 @@ export default function App() {
 
   const saveHistory = (num) => {
     history.push({ phoneNum: num });
+    setNum("");
   };
 
   const clear = () => {
@@ -93,8 +94,6 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   list: {
-    flex: 1,
-
     padding: 10,
     fontSize: 18,
     height: 44,
